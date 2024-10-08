@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -16,14 +18,45 @@ import javafx.util.Duration;
 
 public class App extends Application {
 
-
     public Parent createContent() {
         // Box
-        Box testBox = new Box(5, 5, 5);
+        //Box box = new Box(5, 5, 5);
+        TriangleMesh box = new TriangleMesh();
+        box.getPoints().addAll(2.5f, 2.5f, 2.5f);    // 0
+        box.getPoints().addAll(2.5f, 2.5f, -2.5f);   // 1
+        box.getPoints().addAll(2.5f, -2.5f, 2.5f);   // 2
+        box.getPoints().addAll(2.5f, -2.5f, -2.5f);  // 3
+        box.getPoints().addAll(-2.5f, 2.5f, 2.5f);   // 4
+        box.getPoints().addAll(-2.5f, 2.5f, -2.5f);  // 5
+        box.getPoints().addAll(-2.5f, -2.5f, 2.5f);  // 6
+        box.getPoints().addAll(-2.5f, -2.5f, -2.5f); // 7
+
+        box.getTexCoords().addAll(0, 0);
+
+        //top
+        box.getFaces().addAll(0, 2, 4);
+        box.getFaces().addAll(2, 4, 6);
+        // front
+        box.getFaces().addAll(0, 1, 2);
+        box.getFaces().addAll(1, 2, 3);
+        // right
+        box.getFaces().addAll(0, 1, 5);
+        box.getFaces().addAll(0, 4, 5);
+        // back
+        box.getFaces().addAll(4, 5, 6);
+        box.getFaces().addAll(5, 6, 7);
+        // left
+        box.getFaces().addAll(2, 6, 7);
+        box.getFaces().addAll(2, 3, 7);
+        // bottom
+        box.getFaces().addAll(1, 3, 7);
+        box.getFaces().addAll(1, 5, 7);
+
         PhongMaterial material = new PhongMaterial();
         //material.setDiffuseColor(Color.DARKGREEN);
         material.setDiffuseMap(new Image("texture.jpg"));
-        testBox.setMaterial(material);
+        MeshView dice = new MeshView(box);
+        dice.setMaterial(material);
 
         // Create and position camera
         PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -36,10 +69,10 @@ public class App extends Application {
         // Build the Scene Graph
         Group root = new Group();
         root.getChildren().add(camera);
-        root.getChildren().add(testBox);
+        root.getChildren().add(dice);
 
         RotateTransition rotator = new RotateTransition();
-        rotator.setNode(testBox);
+        rotator.setNode(dice);
         rotator.setDuration(Duration.seconds(5));
         rotator.setAxis(new Point3D(1, 0.5, 1));
         rotator.setFromAngle(0);
