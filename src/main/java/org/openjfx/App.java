@@ -16,11 +16,18 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Random;
+
 public class App extends Application {
 
     public Parent createContent() {
         // Box
-        //Box box = new Box(5, 5, 5);
+        Box dice = new Box(5, 5, 5);
+        PhongMaterial material = new PhongMaterial();
+        //material.setDiffuseColor(Color.DARKGREEN);
+        material.setDiffuseMap(new Image("texture.jpg"));
+        dice.setMaterial(material);
+        /*
         TriangleMesh box = new TriangleMesh();
         box.getPoints().addAll(2.5f, 2.5f, 2.5f);    // 0
         box.getPoints().addAll(2.5f, 2.5f, -2.5f);   // 1
@@ -57,6 +64,7 @@ public class App extends Application {
         material.setDiffuseMap(new Image("texture.jpg"));
         MeshView dice = new MeshView(box);
         dice.setMaterial(material);
+        */
 
         // Create and position camera
         PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -71,12 +79,13 @@ public class App extends Application {
         root.getChildren().add(camera);
         root.getChildren().add(dice);
 
+        Random r = new Random();
         RotateTransition rotator = new RotateTransition();
         rotator.setNode(dice);
         rotator.setDuration(Duration.seconds(5));
-        rotator.setAxis(new Point3D(1, 0.5, 1));
+        rotator.setAxis(new Point3D(r.nextDouble(), r.nextDouble(), r.nextDouble()));
         rotator.setFromAngle(0);
-        rotator.setToAngle(360);
+        rotator.setToAngle(1800);
         rotator.setCycleCount(Transition.INDEFINITE);
         //rotator.setInterpolator(Interpolator.LINEAR);
         rotator.play();
