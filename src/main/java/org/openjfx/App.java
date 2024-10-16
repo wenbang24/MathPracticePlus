@@ -22,6 +22,18 @@ import java.util.Random;
 
 public class App extends Application {
 
+    private boolean isFaceUp(Rotate rotateX, Rotate rotateY, Rotate rotateZ) {
+        // Define the threshold angles that indicate when a face is facing up
+        // Assuming we're checking for a face to align with the Y-axis (i.e., a 90-degree rotation on X or Z)
+        double threshold = 1;  // Allow a margin of error (floating point inaccuracy)
+        double angleX = Math.abs(rotateX.getAngle() % 360);
+        double angleZ = Math.abs(rotateZ.getAngle() % 360);
+
+        // Check if the cuboid is rotated to face up (i.e., X or Z is near 0, 90, 180, or 270 degrees)
+        return (Math.abs(angleX - 90) < threshold || Math.abs(angleX - 270) < threshold) ||
+                (Math.abs(angleZ) < threshold || Math.abs(angleZ - 180) < threshold);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -39,17 +51,27 @@ public class App extends Application {
         CuboidMesh dice = new CuboidMesh(10f, 10f, 10f);
         dice.setTextureModeImage("texture.jpg");
 
-        Rotate rX = new Rotate(0 * Math.PI / 180, Rotate.X_AXIS);
-        Rotate rY = new Rotate(0 * Math.PI / 180, Rotate.Y_AXIS);
-        Rotate rZ = new Rotate(0 * Math.PI / 180, Rotate.Z_AXIS);
+        Rotate rX = new Rotate(0, Rotate.X_AXIS);
+        Rotate rY = new Rotate(0, Rotate.Y_AXIS);
+        Rotate rZ = new Rotate(0, Rotate.Z_AXIS);
         dice.getTransforms().addAll(rX, rY, rZ);
 
         AnimationTimer timer = new AnimationTimer() {
+            Random r = new Random();
+            int counter = r.nextInt(12) + 6;
             @Override
             public void handle(long now) {
-                rX.setAngle(rX.getAngle() + 1);
-                rY.setAngle(rY.getAngle() + 2);
-                rZ.setAngle(rZ.getAngle() + 3);
+                rX.setAngle(rX.getAngle() + 5);
+                rY.setAngle(rY.getAngle() + 6);
+                rZ.setAngle(rZ.getAngle() + 7);
+
+                if (isFaceUp(rX, rY, rZ)) {
+                    //System.out.println("Face aligning " + counter + " more times");
+                    counter--;
+                }
+                if (counter == 0) {
+                    stop();
+                }
             }
         };
         timer.start();
@@ -61,7 +83,7 @@ public class App extends Application {
         scene.setCamera(camera);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("FXyz3D Sample");
+        primaryStage.setTitle("Dice Roller");
         primaryStage.show();
     }
 }
