@@ -1,5 +1,6 @@
 package org.openjfx;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -43,17 +44,15 @@ public class App extends Application {
         Rotate rZ = new Rotate(0 * Math.PI / 180, Rotate.Z_AXIS);
         dice.getTransforms().addAll(rX, rY, rZ);
 
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.millis(10), actionEvent -> {
-                            rX.setAngle(rX.getAngle() + 1);
-                            rY.setAngle(rY.getAngle() + 2);
-                            rZ.setAngle(rZ.getAngle() + 3);
-                        }
-                )
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                rX.setAngle(rX.getAngle() + 1);
+                rY.setAngle(rY.getAngle() + 2);
+                rZ.setAngle(rZ.getAngle() + 3);
+            }
+        };
+        timer.start();
 
         Group group = new Group(cameraTransform, dice);
 
