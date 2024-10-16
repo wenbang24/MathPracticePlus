@@ -1,115 +1,68 @@
 package org.openjfx;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.animation.RotateTransition;
-import javafx.animation.Transition;
-import javafx.geometry.Point3D;
-import javafx.scene.*;
-import javafx.scene.image.Image;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.TriangleMesh;
+import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.fxyz3d.shapes.primitives.SpringMesh;
+import org.fxyz3d.shapes.primitives.CuboidMesh;
+import org.fxyz3d.utils.CameraTransformer;
 
+import java.sql.Time;
 import java.util.Random;
 
 public class App extends Application {
 
-    public Parent createContent() {
-        // Box
-        Box dice = new Box(5, 5, 5);
-        PhongMaterial material = new PhongMaterial();
-        //material.setDiffuseColor(Color.DARKGREEN);
-        material.setDiffuseMap(new Image("texture.jpg"));
-        dice.setMaterial(material);
-        /*
-        TriangleMesh box = new TriangleMesh();
-        box.getPoints().addAll(2.5f, 2.5f, 2.5f);    // 0
-        box.getPoints().addAll(2.5f, 2.5f, -2.5f);   // 1
-        box.getPoints().addAll(2.5f, -2.5f, 2.5f);   // 2
-        box.getPoints().addAll(2.5f, -2.5f, -2.5f);  // 3
-        box.getPoints().addAll(-2.5f, 2.5f, 2.5f);   // 4
-        box.getPoints().addAll(-2.5f, 2.5f, -2.5f);  // 5
-        box.getPoints().addAll(-2.5f, -2.5f, 2.5f);  // 6
-        box.getPoints().addAll(-2.5f, -2.5f, -2.5f); // 7
-
-        box.getTexCoords().addAll(0, 0);
-
-        //top
-        box.getFaces().addAll(0, 2, 4);
-        box.getFaces().addAll(2, 4, 6);
-        // front
-        box.getFaces().addAll(0, 1, 2);
-        box.getFaces().addAll(1, 2, 3);
-        // right
-        box.getFaces().addAll(0, 1, 5);
-        box.getFaces().addAll(0, 4, 5);
-        // back
-        box.getFaces().addAll(4, 5, 6);
-        box.getFaces().addAll(5, 6, 7);
-        // left
-        box.getFaces().addAll(2, 6, 7);
-        box.getFaces().addAll(2, 3, 7);
-        // bottom
-        box.getFaces().addAll(1, 3, 7);
-        box.getFaces().addAll(1, 5, 7);
-
-        PhongMaterial material = new PhongMaterial();
-        //material.setDiffuseColor(Color.DARKGREEN);
-        material.setDiffuseMap(new Image("texture.jpg"));
-        MeshView dice = new MeshView(box);
-        dice.setMaterial(material);
-        */
-
-        // Create and position camera
-        PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.getTransforms().addAll(
-                new Rotate(-20, Rotate.Y_AXIS),
-                new Rotate(-20, Rotate.X_AXIS),
-                new Translate(0, 0, -20)
-        );
-
-        // Build the Scene Graph
-        Group root = new Group();
-        root.getChildren().add(camera);
-        root.getChildren().add(dice);
-
-        Random r = new Random();
-        RotateTransition rotator = new RotateTransition();
-        rotator.setNode(dice);
-        rotator.setDuration(Duration.seconds(5));
-        rotator.setAxis(new Point3D(r.nextDouble(), r.nextDouble(), r.nextDouble()));
-        rotator.setFromAngle(0);
-        rotator.setToAngle(1800);
-        rotator.setCycleCount(Transition.INDEFINITE);
-        //rotator.setInterpolator(Interpolator.LINEAR);
-        rotator.play();
-
-        // Use a SubScene
-        SubScene subScene = new SubScene(root, 300, 300);
-        subScene.setFill(Color.web("#0a4f59"));
-        subScene.setCamera(camera);
-        Group group = new Group();
-        group.getChildren().add(subScene);
-
-        return group;
-    }
-
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setResizable(false);
-        Scene scene = new Scene(createContent());
+    public void start(Stage primaryStage) throws Exception {
+        PerspectiveCamera camera = new PerspectiveCamera(true);
+        camera.setNearClip(0.1);
+        camera.setFarClip(10000.0);
+        camera.setTranslateX(10);
+        camera.setTranslateZ(-100);
+        camera.setFieldOfView(20);
+
+        CameraTransformer cameraTransform = new CameraTransformer();
+        cameraTransform.getChildren().add(camera);
+        //cameraTransform.ry.setAngle(-30.0);
+        //cameraTransform.rx.setAngle(-15.0);
+
+        CuboidMesh dice = new CuboidMesh(10f, 10f, 10f);
+        dice.setTextureModeImage("texture.jpg");
+
+        Rotate rX = new Rotate(0 * Math.PI / 180, Rotate.X_AXIS);
+        Rotate rY = new Rotate(0 * Math.PI / 180, Rotate.Y_AXIS);
+        Rotate rZ = new Rotate(0 * Math.PI / 180, Rotate.Z_AXIS);
+        dice.getTransforms().addAll(rX, rY, rZ);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.millis(10), actionEvent -> {
+                            rX.setAngle(rX.getAngle() + 1);
+                            rY.setAngle(rY.getAngle() + 2);
+                            rZ.setAngle(rZ.getAngle() + 3);
+                        }
+                )
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+        Group group = new Group(cameraTransform, dice);
+
+        Scene scene = new Scene(group, 600, 400, true, SceneAntialiasing.BALANCED);
+        scene.setFill(Color.BISQUE);
+        scene.setCamera(camera);
+
         primaryStage.setScene(scene);
+        primaryStage.setTitle("FXyz3D Sample");
         primaryStage.show();
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }
