@@ -64,7 +64,7 @@ public class App extends Application {
             }
         };
         Button roll = new Button("Roll");
-        EventHandler<ActionEvent> event = eventlambda -> {
+        EventHandler<ActionEvent> event = _ -> {
             counter = r.nextInt(6) + 6;
             rX.setAngle(rX.getAngle() + 50);
             rY.setAngle(rY.getAngle() + 50);
