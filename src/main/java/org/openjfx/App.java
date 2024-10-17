@@ -1,24 +1,18 @@
 package org.openjfx;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.fxyz3d.shapes.primitives.CuboidMesh;
 import org.fxyz3d.utils.CameraTransformer;
-import java.sql.Time;
 import java.util.Random;
 
 public class App extends Application {
