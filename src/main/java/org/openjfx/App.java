@@ -25,15 +25,9 @@ public class App extends Application {
     int counter = 0;
 
     private boolean isFaceUp(Rotate rotateX, Rotate rotateY, Rotate rotateZ) {
-        // Define the threshold angles that indicate when a face is facing up
-        // Assuming we're checking for a face to align with the Y-axis (i.e., a 90-degree rotation on X or Z)
-        double threshold = 1;  // Allow a margin of error (floating point inaccuracy)
+        double threshold = 2;  // Allow a margin of error
         double angleX = Math.abs(rotateX.getAngle() % 360);
-        double angleZ = Math.abs(rotateZ.getAngle() % 360);
-
-        // Check if the cuboid is rotated to face up (i.e., X or Z is near 0, 90, 180, or 270 degrees)
-        return (Math.abs(angleX - 90) < threshold || Math.abs(angleX - 270) < threshold) ||
-                (Math.abs(angleZ) < threshold || Math.abs(angleZ - 180) < threshold);
+        return (Math.abs(angleX) < threshold) || (Math.abs(angleX - 90) < threshold) || (Math.abs(angleX - 180) < threshold) || (Math.abs(angleX - 270) < threshold);
     }
 
     @Override
@@ -62,9 +56,9 @@ public class App extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                rX.setAngle(rX.getAngle() + 5);
-                rY.setAngle(rY.getAngle() + 6);
-                rZ.setAngle(rZ.getAngle() + 7);
+                rX.setAngle(rX.getAngle() + 5 + r.nextInt(10));
+                rY.setAngle(rY.getAngle() + 5 + r.nextInt(10));
+                rZ.setAngle(rZ.getAngle() + 5 + r.nextInt(10));
 
                 if (isFaceUp(rX, rY, rZ)) {
                     System.out.println("Face aligning " + counter + " more times");
@@ -79,7 +73,7 @@ public class App extends Application {
         Button roll = new Button("Roll");
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                counter = r.nextInt(12) + 6;
+                counter = r.nextInt(6) + 6;
                 rX.setAngle(rX.getAngle() + 50);
                 rY.setAngle(rY.getAngle() + 50);
                 rZ.setAngle(rZ.getAngle() + 50);
