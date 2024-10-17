@@ -63,7 +63,6 @@ public class App extends Application {
                 }
             }
         };
-        //timer.start();
         Button roll = new Button("Roll");
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
