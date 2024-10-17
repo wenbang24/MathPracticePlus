@@ -35,8 +35,6 @@ public class App extends Application {
 
         CameraTransformer cameraTransform = new CameraTransformer();
         cameraTransform.getChildren().add(camera);
-        //cameraTransform.ry.setAngle(-30.0);
-        //cameraTransform.rx.setAngle(-15.0);
 
         CuboidMesh dice = new CuboidMesh(10f, 10f, 10f);
         dice.setTextureModeImage("texture.jpg");
