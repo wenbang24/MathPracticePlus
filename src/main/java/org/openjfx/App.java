@@ -64,14 +64,12 @@ public class App extends Application {
             }
         };
         Button roll = new Button("Roll");
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                counter = r.nextInt(6) + 6;
-                rX.setAngle(rX.getAngle() + 50);
-                rY.setAngle(rY.getAngle() + 50);
-                rZ.setAngle(rZ.getAngle() + 50);
-                timer.start();
-            }
+        EventHandler<ActionEvent> event = eventlambda -> {
+            counter = r.nextInt(6) + 6;
+            rX.setAngle(rX.getAngle() + 50);
+            rY.setAngle(rY.getAngle() + 50);
+            rZ.setAngle(rZ.getAngle() + 50);
+            timer.start();
         };
         roll.setOnAction(event);
 
