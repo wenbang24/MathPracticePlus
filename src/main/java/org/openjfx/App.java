@@ -11,16 +11,18 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.fxyz3d.shapes.primitives.SpringMesh;
 import org.fxyz3d.shapes.primitives.CuboidMesh;
 import org.fxyz3d.utils.CameraTransformer;
-
 import java.sql.Time;
 import java.util.Random;
 
 public class App extends Application {
+    int counter = 0;
 
     private boolean isFaceUp(Rotate rotateX, Rotate rotateY, Rotate rotateZ) {
         // Define the threshold angles that indicate when a face is facing up
@@ -55,10 +57,9 @@ public class App extends Application {
         Rotate rY = new Rotate(0, Rotate.Y_AXIS);
         Rotate rZ = new Rotate(0, Rotate.Z_AXIS);
         dice.getTransforms().addAll(rX, rY, rZ);
+        Random r = new Random();
 
         AnimationTimer timer = new AnimationTimer() {
-            Random r = new Random();
-            int counter = r.nextInt(12) + 6;
             @Override
             public void handle(long now) {
                 rX.setAngle(rX.getAngle() + 5);
@@ -66,20 +67,31 @@ public class App extends Application {
                 rZ.setAngle(rZ.getAngle() + 7);
 
                 if (isFaceUp(rX, rY, rZ)) {
-                    //System.out.println("Face aligning " + counter + " more times");
-                    counter--;
+                    System.out.println("Face aligning " + counter + " more times");
+                    counter -= 1;
                 }
                 if (counter == 0) {
                     stop();
                 }
             }
         };
-        timer.start();
+        //timer.start();
+        Button roll = new Button("Roll");
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                counter = r.nextInt(12) + 6;
+                rX.setAngle(rX.getAngle() + 50);
+                rY.setAngle(rY.getAngle() + 50);
+                rZ.setAngle(rZ.getAngle() + 50);
+                timer.start();
+            }
+        };
+        roll.setOnAction(event);
 
-        Group group = new Group(cameraTransform, dice);
+        Group group = new Group(cameraTransform, dice, roll);
 
         Scene scene = new Scene(group, 600, 400, true, SceneAntialiasing.BALANCED);
-        scene.setFill(Color.BISQUE);
+        //scene.setFill(Color.BISQUE);
         scene.setCamera(camera);
 
         primaryStage.setScene(scene);
