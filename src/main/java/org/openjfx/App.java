@@ -19,13 +19,13 @@ public class App extends Application {
     int counter = 0;
 
     private boolean isFaceUp(Rotate rotateX) {
-        double threshold = 2;  // Allow a margin of error
+        double threshold = 2;  // allow a margin of error
         double angleX = Math.abs(rotateX.getAngle() % 360);
         return (Math.abs(angleX) < threshold) || (Math.abs(angleX - 90) < threshold) || (Math.abs(angleX - 180) < threshold) || (Math.abs(angleX - 270) < threshold);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setNearClip(0.1);
         camera.setFarClip(10000.0);
