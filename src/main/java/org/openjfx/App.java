@@ -24,7 +24,7 @@ import java.util.Random;
 public class App extends Application {
     int counter = 0;
 
-    private boolean isFaceUp(Rotate rotateX, Rotate rotateY, Rotate rotateZ) {
+    private boolean isFaceUp(Rotate rotateX) {
         double threshold = 2;  // Allow a margin of error
         double angleX = Math.abs(rotateX.getAngle() % 360);
         return (Math.abs(angleX) < threshold) || (Math.abs(angleX - 90) < threshold) || (Math.abs(angleX - 180) < threshold) || (Math.abs(angleX - 270) < threshold);
@@ -60,7 +60,7 @@ public class App extends Application {
                 rY.setAngle(rY.getAngle() + 5 + r.nextInt(10));
                 rZ.setAngle(rZ.getAngle() + 5 + r.nextInt(10));
 
-                if (isFaceUp(rX, rY, rZ)) {
+                if (isFaceUp(rX)) {
                     System.out.println("Face aligning " + counter + " more times");
                     counter -= 1;
                 }
