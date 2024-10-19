@@ -64,7 +64,7 @@ public class App extends Application {
                 rZ1.setAngle(rZ1.getAngle() + 5 + r.nextInt(10));
 
                 if (isFaceUp(rX1)) {
-                    System.out.println("Face aligning " + counter1 + " more times");
+                    //System.out.println("Face 1 aligning " + counter1 + " more times");
                     counter1 -= 1;
                 }
                 if (counter1 == 0) {
@@ -80,7 +80,7 @@ public class App extends Application {
                 rZ2.setAngle(rZ2.getAngle() - 5 - r.nextInt(10));
 
                 if (isFaceUp(rX2)) {
-                    System.out.println("Face aligning " + counter2 + " more times");
+                    //System.out.println("Face 2 aligning " + counter2 + " more times");
                     counter2 -= 1;
                 }
                 if (counter2 == 0) {
