@@ -7,6 +7,7 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
@@ -87,6 +88,9 @@ public class App extends Application {
             }
         };
         Button roll = new Button("Roll");
+        Scale scale = new Scale(0.15, 0.15, 0.15);
+        Translate buttonTranslate = new Translate(47, -10, 0);
+        roll.getTransforms().addAll(scale, buttonTranslate);
         EventHandler<ActionEvent> event = _ -> {
             counter = r.nextInt(6) + 3;
             rX1.setAngle(rX1.getAngle() + 50);
