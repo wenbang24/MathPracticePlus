@@ -18,7 +18,8 @@ import org.fxyz3d.utils.CameraTransformer;
 import java.util.Random;
 
 public class App extends Application {
-    int counter = 0;
+    int counter1 = 0;
+    int counter2 = 0;
 
     private boolean isFaceUp(Rotate rotateX) {
         double threshold = 2;  // allow a margin of error
@@ -63,10 +64,10 @@ public class App extends Application {
                 rZ1.setAngle(rZ1.getAngle() + 5 + r.nextInt(10));
 
                 if (isFaceUp(rX1)) {
-                    System.out.println("Face aligning " + counter + " more times");
-                    counter -= 1;
+                    System.out.println("Face aligning " + counter1 + " more times");
+                    counter1 -= 1;
                 }
-                if (counter == 0) {
+                if (counter1 == 0) {
                     stop();
                 }
             }
@@ -79,10 +80,10 @@ public class App extends Application {
                 rZ2.setAngle(rZ2.getAngle() - 5 - r.nextInt(10));
 
                 if (isFaceUp(rX2)) {
-                    System.out.println("Face aligning " + counter + " more times");
-                    counter -= 1;
+                    System.out.println("Face aligning " + counter2 + " more times");
+                    counter2 -= 1;
                 }
-                if (counter == 0) {
+                if (counter2 == 0) {
                     stop();
                 }
             }
@@ -92,7 +93,8 @@ public class App extends Application {
         Translate buttonTranslate = new Translate(47, -10, 0);
         roll.getTransforms().addAll(scale, buttonTranslate);
         EventHandler<ActionEvent> event = _ -> {
-            counter = r.nextInt(6) + 3;
+            counter1 = r.nextInt(6) + 3;
+            counter2 = r.nextInt(6) + 3;
             rX1.setAngle(rX1.getAngle() + 50);
             rY1.setAngle(rY1.getAngle() + 50);
             rZ1.setAngle(rZ1.getAngle() + 50);
