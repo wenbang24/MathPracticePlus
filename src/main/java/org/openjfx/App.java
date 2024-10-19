@@ -34,7 +34,7 @@ public class App extends Application {
         camera.setFarClip(10000.0);
         camera.setTranslateX(10);
         camera.setTranslateZ(-100);
-        camera.setFieldOfView(20);
+        camera.setFieldOfView(18);
 
         CameraTransformer cameraTransform = new CameraTransformer();
         cameraTransform.getChildren().add(camera);
