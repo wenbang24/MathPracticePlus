@@ -160,7 +160,7 @@ public class App extends Application {
 
             NumberAxis xAxis = new NumberAxis();
             NumberAxis yAxis = new NumberAxis();
-            LineChart chart = new LineChart(xAxis, yAxis);
+            LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
             chart.setTranslateY(100);
 
             solve.setOnAction(_ -> {
@@ -170,7 +170,7 @@ public class App extends Application {
                     double c = Double.parseDouble(cInput.getText());
                     double discriminant = b * b - 4 * a * c;
 
-                    XYChart.Series series = new XYChart.Series();
+                    XYChart.Series<Number, Number> series = new XYChart.Series<>();
                     series.setName(a + "x^2 + " + b + "x + " + c);
                     chart.getData().add(series);
 
@@ -178,20 +178,20 @@ public class App extends Application {
                         double turningPoint = -b / (2 * a);
                         roots.setText("Roots: No real roots");
                         for (int i = (int)turningPoint - 10; i <= turningPoint + 11; i++) {
-                            series.getData().add(new XYChart.Data(i, a * i * i + b * i + c));
+                            series.getData().add(new XYChart.Data<>(i, a * i * i + b * i + c));
                         }
                     } else if (discriminant == 0) {
                         double root = -b / (2 * a);
                         roots.setText("Roots: " + root);
                         for (int i = (int)root - 10; i <= root + 10; i++){
-                            series.getData().add(new XYChart.Data(i, a * i * i + b * i + c));
+                            series.getData().add(new XYChart.Data<>(i, a * i * i + b * i + c));
                         }
                     } else {
                         double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
                         double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
                         roots.setText("Roots: " + root1 + ", " + root2);
                         for (int i = (int)root2 - 10; i <= root1 + 10; i++){
-                            series.getData().add(new XYChart.Data(i, a * i * i + b * i + c));
+                            series.getData().add(new XYChart.Data<>(i, a * i * i + b * i + c));
                         }
                     }
                 } catch (NumberFormatException _) { // turns out NullPointerException isn't thrown even if all three fields are blank
