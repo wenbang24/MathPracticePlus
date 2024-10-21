@@ -1,5 +1,6 @@
 package org.openjfx;
 
+import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.NumberAxis;
@@ -11,8 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class QuadraticSolver {
-    public void QuadraticSolverStage(Stage primaryStage) {
+public class QuadraticSolver extends Application {
+    @Override
+    public void start(Stage primaryStage) {
         Label aLabel = new Label("a:");
         TextField aInput = new TextField("1");
         aInput.setPrefColumnCount(3);

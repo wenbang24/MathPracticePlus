@@ -1,5 +1,6 @@
 package org.openjfx;
 
+import javafx.application.Application;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -16,7 +17,7 @@ import org.fxyz3d.shapes.primitives.CuboidMesh;
 import org.fxyz3d.utils.CameraTransformer;
 import java.util.Random;
 
-public class DiceRoller {
+public class DiceRoller extends Application {
     int counter1 = 0;
     int counter2 = 0;
 
@@ -26,7 +27,8 @@ public class DiceRoller {
         return (Math.abs(angleX) < threshold) || (Math.abs(angleX - 90) < threshold) || (Math.abs(angleX - 180) < threshold) || (Math.abs(angleX - 270) < threshold);
     }
 
-    public void DiceRollerStage(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setNearClip(0.1);
         camera.setFarClip(10000.0);

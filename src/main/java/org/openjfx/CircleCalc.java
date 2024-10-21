@@ -1,5 +1,6 @@
 package org.openjfx;
 
+import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -9,8 +10,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-public class CircleCalc {
-    public void CircleCalcStage(Stage primaryStage) {
+public class CircleCalc extends Application {
+    @Override
+    public void start(Stage primaryStage) {
         Circle circle = new Circle(250, 250, 200);
         circle.setFill(null);
         circle.setStroke(Color.BLACK);
