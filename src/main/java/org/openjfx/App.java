@@ -12,19 +12,19 @@ public class App extends Application {
         Button diceRoller = new Button("Dice Roller");
         diceRoller.setMinWidth(200);
         diceRoller.setMinHeight(100);
-        diceRoller.setOnAction(_ -> new DiceRoller().start(new Stage()));
+        diceRoller.setOnAction(action -> new DiceRoller().start(new Stage()));
 
         Button quadraticSolver = new Button("Quadratic Solver");
         quadraticSolver.setMinWidth(200);
         quadraticSolver.setMinHeight(100);
         quadraticSolver.setTranslateY(100);
-        quadraticSolver.setOnAction(_ -> new QuadraticSolver().start(new Stage()));
+        quadraticSolver.setOnAction(action -> new QuadraticSolver().start(new Stage()));
 
         Button circleCalc = new Button("Circle Calculator");
         circleCalc.setMinWidth(200);
         circleCalc.setMinHeight(100);
         circleCalc.setTranslateY(200);
-        circleCalc.setOnAction(_ -> new CircleCalc().start(new Stage()));
+        circleCalc.setOnAction(action -> new CircleCalc().start(new Stage()));
 
         Group group = new Group(diceRoller, quadraticSolver, circleCalc);
         Scene scene = new Scene(group, 200, 300);

@@ -36,12 +36,12 @@ public class CircleCalc extends Application {
         radiusLabel.setLabelFor(radiusInput);
         radiusLabel.setTranslateX(280);
         radiusLabel.setTranslateY(220);
-        radiusInput.textProperty().addListener((_, _, newValue) -> {
+        radiusInput.textProperty().addListener((listener, oldValue, newValue) -> {
             try {
                 double radius = Double.parseDouble(newValue);
                 circumferenceLabel.setText("Circumference: " + radius * 2 * Math.PI);
                 areaLabel.setText("Area: " + radius * radius * Math.PI);
-            } catch (NumberFormatException _) {
+            } catch (NumberFormatException e) {
                 circumferenceLabel.setText("Circumference: Invalid Input");
                 areaLabel.setText("Area: Invalid Input");
             }

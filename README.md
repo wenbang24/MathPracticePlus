@@ -1,6 +1,13 @@
 # MathPracticePlus
 a simple java project for school
 
-uses javafx and fxyz with maven :)
+uses the javafx and fxyz libraries with maven
 
-use mvn javafx:run to run it
+## Running
+make sure you have maven installed: https://maven.apache.org/download.cgi
+
+clone this repository: `git clone {url}`
+
+cd into the root directory: `cd MathPractice`
+
+run the project: `mvn javafx:run`

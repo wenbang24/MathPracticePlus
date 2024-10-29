@@ -46,7 +46,7 @@ public class QuadraticSolver extends Application {
         LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
         chart.setTranslateY(100);
 
-        solve.setOnAction(_ -> {
+        solve.setOnAction(action -> {
             try {
                 double a = Double.parseDouble(aInput.getText());
                 double b = Double.parseDouble(bInput.getText());
@@ -77,14 +77,14 @@ public class QuadraticSolver extends Application {
                         series.getData().add(new XYChart.Data<>(i, a * i * i + b * i + c));
                     }
                 }
-            } catch (NumberFormatException _) { // turns out NullPointerException isn't thrown even if all three fields are blank
+            } catch (NumberFormatException e) { // turns out NullPointerException isn't thrown even if all three fields are blank
                 Alert invalid = new Alert(Alert.AlertType.ERROR, "Invalid input; please only enter numbers in the fields");
                 invalid.showAndWait();
             }
         });
         Button clear = new Button("Clear");
         clear.setTranslateY(500);
-        clear.setOnAction(_ -> {
+        clear.setOnAction(action -> {
             roots.setText("Roots: ");
             chart.getData().clear();
         });

@@ -90,7 +90,7 @@ public class DiceRoller extends Application {
         Scale scale = new Scale(0.15, 0.15, 0.15);
         Translate buttonTranslate = new Translate(47, -10, 0);
         roll.getTransforms().addAll(scale, buttonTranslate);
-        EventHandler<ActionEvent> event = _ -> {
+        EventHandler<ActionEvent> event = action -> {
             counter1 = r.nextInt(6) + 3;
             counter2 = r.nextInt(6) + 3;
             rX1.setAngle(rX1.getAngle() + 50);
