@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 public class CircleCalc extends Application {
     @Override
     public void start(Stage primaryStage) {
+        // circle with center and radius line
         Circle circle = new Circle(250, 250, 200);
         circle.setFill(null);
         circle.setStroke(Color.BLACK);
@@ -29,24 +30,27 @@ public class CircleCalc extends Application {
         areaLabel.setTranslateX(200);
 
         Label radiusLabel = new Label("Radius: ");
-        TextField radiusInput = new TextField("1");
+        TextField radiusInput = new TextField("1"); // radius input
         radiusInput.setPrefColumnCount(3);
         radiusInput.setTranslateX(333);
         radiusInput.setTranslateY(215);
         radiusLabel.setLabelFor(radiusInput);
         radiusLabel.setTranslateX(280);
         radiusLabel.setTranslateY(220);
+        // when the radius field changes
         radiusInput.textProperty().addListener((listener, oldValue, newValue) -> {
             try {
                 double radius = Double.parseDouble(newValue);
+                // calculate from radius and display
                 circumferenceLabel.setText("Circumference: " + radius * 2 * Math.PI);
                 areaLabel.setText("Area: " + radius * radius * Math.PI);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { // empty or not number
                 circumferenceLabel.setText("Circumference: Invalid Input");
                 areaLabel.setText("Area: Invalid Input");
             }
         });
 
+        // add everything to a group and display
         Group group = new Group(circle, centre, radiusLine, radiusLabel, radiusInput, circumferenceLabel, areaLabel);
         Scene scene = new Scene(group, 500, 500);
         primaryStage.setTitle("Circle Calculator");
