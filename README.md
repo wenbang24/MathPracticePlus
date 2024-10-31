@@ -8,6 +8,6 @@ make sure you have maven installed: https://maven.apache.org/download.cgi
 
 clone this repository: `git clone {url}`
 
-cd into the root directory: `cd MathPractice`
+cd into the root directory: `cd MathPracticePlus`
 
-run the project: `mvn javafx:run`
+run the project: `mvn clean javafx:run`
